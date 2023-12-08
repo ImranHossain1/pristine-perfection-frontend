@@ -8,7 +8,7 @@ import Redirect from "@/components/ui/Redirect/Redirect";
 
 const AdminLayout = ({ children }: IChildrenProps) => {
   return (
-    // <Redirect role="admin">
+    <Redirect role="admin">
     <>
       <Navbar sidebar={false} />
       <div className="mt-20 flex">
@@ -17,7 +17,7 @@ const AdminLayout = ({ children }: IChildrenProps) => {
       </div>
     </>
 
-    // </Redirect>
+    </Redirect>
   );
 };
 

@@ -17,10 +17,10 @@ const Redirect = ({ children, role }: IProps) => {
     if (role && user?.role !== "super_admin") {
       user?.role !== role && router.push("/login");
     } else {
-      !user?.userId && router.push("/login");
+      !user?.email && router.push("/login");
     }
     setIsLoading(false);
-  }, [router, user?.userId, user?.role, role]);
+  }, [router, user?.email, user?.role, role]);
 
   if (isLoading) return <LoadingPage />;
   return <div>{children}</div>;

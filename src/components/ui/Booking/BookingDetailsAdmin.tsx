@@ -98,7 +98,7 @@ const BookingDetailsAdmin = ({ booking }: { booking: any }) => {
               <BookingInfoCard label="Email" data={booking?.user?.email} />
               <BookingInfoCard
                 label="Contact Number"
-                data={booking?.contactNo}
+                data={booking?.user?.phone}
               />
               <BookingInfoCard
                 label="Alternative Contact Number"

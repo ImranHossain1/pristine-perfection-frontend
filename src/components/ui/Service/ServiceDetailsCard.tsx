@@ -51,7 +51,7 @@ const ServiceDetailsCard = ({
         <div className="text-lg md:text-2xl text-[#92140C] mt-3 md:mt-4">
           Price
         </div>
-        <p className="text-sm md:text-base">{data?.price} TK</p>
+        <p className="text-sm md:text-base">{data?.price}$</p>
         {bookBtn && (
           <div
             className="w-fit mt-3 md:mt-4"
