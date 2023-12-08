@@ -33,7 +33,7 @@ const Navbar = ({ sidebar }: IProps) => {
 
   const path = usePathname();
   const router = useRouter();
-  const { userId, role } = getUserInfo() as any;
+  const { email, role } = getUserInfo() as any;
   const handleLogout = () => {
     removeUserInfo(authKey);
     setCurrentUser({ id: "", role: "" });
@@ -41,9 +41,9 @@ const Navbar = ({ sidebar }: IProps) => {
   };
 
   useEffect(() => {
-    if (userId && role) setCurrentUser({ id: userId, role: role });
+    if (email && role) setCurrentUser({ id: email, role: role });
     setIsLoading(false);
-  }, [userId, role]);
+  }, [email, role]);
 
   if (isLoading || isDataLoading) return <LoadingPage />;
 
@@ -142,7 +142,7 @@ const Navbar = ({ sidebar }: IProps) => {
                 {/* Sidebar content here */}
                 <>
                   {/* auth items  */}
-                  {!userId &&
+                  {!email &&
                     authItems &&
                     authItems?.map((item) => (
                       <li
