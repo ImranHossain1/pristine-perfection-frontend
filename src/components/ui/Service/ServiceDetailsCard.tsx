@@ -21,7 +21,7 @@ const ServiceDetailsCard = ({
             src={
               data?.image
                 ? data?.image
-                : "https://i.ibb.co/Kx0MBjW/161458103-804714766803585-5018531988672904671-n.jpg"
+                : "https://res.cloudinary.com/dk9iz6r2z/image/upload/v1702046564/gbifw5rwo76tidd6f3x4.jpg"
             }
             alt=""
             height={500}

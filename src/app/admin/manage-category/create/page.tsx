@@ -1,6 +1,7 @@
 "use client";
 import Form from "@/components/ui/Forms/Form";
 import FormInput from "@/components/ui/Forms/FormInput";
+import UploadImage from "@/components/ui/Forms/UploadImage";
 import FormTextArea from "@/components/ui/Forms/FormTextArea";
 import SubmitButton from "@/components/ui/Forms/SubmitButton";
 import { useCreateCategoryMutation } from "@/redux/api/categoryApi";
@@ -15,13 +16,27 @@ const CreateCategoryPage = () => {
   const [createCategory] = useCreateCategoryMutation();
   const router = useRouter();
 
-  const handleSubmit = async (data: any) => {
-    data.information = data.information?.filter((info: any) => !!info);
-    if (data.information.length < 1) {
+  const handleSubmit = async (values: any) => {
+    values.information = values.information?.filter((info: any) => !!info);
+    if (values.information.length < 1) {
       toast.error("Add Information");
       return;
     }
-    const res = await createCategory(data).unwrap();
+    const categoryData = {
+      category: {
+        title: values.title,
+        information: values.information,
+      },
+    };
+    const obj = { ...values };
+    const file = obj["file"];
+    delete obj["file"];
+
+    const formData = new FormData();
+    formData.append("file", file as Blob);
+    formData.append("data", JSON.stringify(categoryData));
+
+    const res = await createCategory(formData).unwrap();
     if (res.id) {
       toast.success("Category Created");
       router.push("/admin/manage-category");
@@ -37,6 +52,7 @@ const CreateCategoryPage = () => {
           doReset={false}
           resolver={yupResolver(categorySchema)}
         >
+          <UploadImage name="file"></UploadImage>
           <FormInput name="title" label="Title" placeholder="Category Title" />
           <div className="mb-1">Information</div>
           {contentInputs.map((order) => (

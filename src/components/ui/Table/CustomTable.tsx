@@ -26,7 +26,19 @@ const CustomTable = ({ columns, data }: IProps) => {
             return (
               <tr key={index}>
                 {columns.map((column: IColumn, columnIndex: number) => {
-                  return <td key={columnIndex}>{item[column.key]}</td>;
+                  if (column.key === "image")
+                    return (
+                      <td key={columnIndex}>
+                        <div className="avatar">
+                          <div className="w-8 rounded-full">
+                            <img src={item[column.key]} />
+                          </div>
+                        </div>
+                      </td>
+                    );
+                  else {
+                    return <td key={columnIndex}>{item[column.key]}</td>;
+                  }
                 })}
                 <td>{item.actionButton && item.actionButton}</td>
               </tr>

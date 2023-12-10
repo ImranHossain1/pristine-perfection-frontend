@@ -57,7 +57,7 @@ const BookingsPage = () => {
                   <td className="flex flex-col lg:flex-row">
                     <Modal
                       htmlFor={`booking/view/${booking?.id}`}
-                      label="View"
+                      label="Views"
                       btnSize="btn-xs"
                       btnTheme="btn"
                       modalOpen={modalOpen}

@@ -2,7 +2,7 @@ import Image from "next/image";
 import React from "react";
 import Heading from "../Heading/Heading";
 import HeadingStart from "../Heading/HeadingStart";
-
+import image from "../../../asset/image/studio.jpg";
 const CapsuleBanner = () => {
   return (
     <div className="flex flex-col md:flex-row space-y-3 md:space-y-0 md:space-x-10 items-center justify-between">
@@ -27,10 +27,10 @@ const CapsuleBanner = () => {
       <div>
         <div className="overflow-hidden ">
           <Image
-            src="https://i.ibb.co/GkWdWWh/Beauty-Test-Model-Sonia-Ben-Ammar-Test-Drives-4-Minimal-Makeup-Looks.jpg"
+            src={image}
             alt=""
-            height={350}
-            width={350}
+            height={500}
+            width={500}
             className="border-2 border-solid border-[#FFCF99] p-5 rounded-full w-64 h-72 lg:w-80 lg:h-96"
           />
         </div>

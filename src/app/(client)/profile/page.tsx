@@ -60,7 +60,7 @@ const ProfilePage = () => {
             src={
               data?.profileImg
                 ? data?.profileImg
-                : "https://i.ibb.co/VWr11NC/5891012-removebg-preview.png"
+                : "https://res.cloudinary.com/dk9iz6r2z/image/upload/v1702046564/gbifw5rwo76tidd6f3x4.jpg"
             }
             alt=""
             width={300}

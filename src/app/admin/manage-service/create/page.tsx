@@ -5,6 +5,7 @@ import FormInput from "@/components/ui/Forms/FormInput";
 import FormSelectInput from "@/components/ui/Forms/FormSelectInput";
 import FormTextArea from "@/components/ui/Forms/FormTextArea";
 import SubmitButton from "@/components/ui/Forms/SubmitButton";
+import UploadImage from "@/components/ui/Forms/UploadImage";
 import { useCategoriesQuery } from "@/redux/api/categoryApi";
 import { useCreateServiceMutation } from "@/redux/api/serviceApi";
 import { serviceSchema } from "@/schema/service";
@@ -20,17 +21,37 @@ const CreateServicePage = () => {
     useCategoriesQuery({ limit: 100 });
   const router = useRouter();
 
-  const handleSubmit = async (data: any) => {
-    data.information = data.information?.filter((info: any) => !!info);
-    if (data.information.length < 1) {
+  const handleSubmit = async (values: any) => {
+    values.information = values.information?.filter((info: any) => !!info);
+    if (values.information.length < 1) {
       toast.error("Add Information");
       return;
     }
-    data.price = Number(data.price);
-    data.availability === "true"
-      ? (data.availability = true)
-      : (data.availability = false);
-    const res = await createService(data).unwrap();
+
+    values.price = Number(values.price);
+    values.availability === "true"
+      ? (values.availability = true)
+      : (values.availability = false);
+    const makeoverData = {
+      makeover: {
+        title: values.title,
+        price: values.price,
+        availability: values.availability,
+        categoryId: values.categoryId,
+        information: values.information,
+      },
+    };
+    console.log(makeoverData);
+
+    const obj = { ...values };
+    const file = obj["file"];
+    delete obj["file"];
+
+    const formData = new FormData();
+    formData.append("file", file as Blob);
+    formData.append("data", JSON.stringify(makeoverData));
+
+    const res = await createService(formData).unwrap();
     if (res.id) {
       toast.success("Service Created");
       router.push("/admin/manage-service");
@@ -58,6 +79,8 @@ const CreateServicePage = () => {
           doReset={false}
           resolver={yupResolver(serviceSchema)}
         >
+          <UploadImage name="file"></UploadImage>
+
           <FormInput name="title" label="Title" placeholder="Service Title" />
           <FormInput
             name="price"

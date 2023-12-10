@@ -4,10 +4,7 @@ import BookingDetails from "@/components/ui/Booking/BookingDetails";
 import BookingDetailsAdmin from "@/components/ui/Booking/BookingDetailsAdmin";
 import Modal from "@/components/ui/Modal/Modal";
 import { useDebounce } from "@/hooks/useDebounce";
-import {
-  useAllBookingsQuery,
-  useDeleteBookingMutation,
-} from "@/redux/api/bookingApi";
+import { useAllBookingsQuery } from "@/redux/api/bookingApi";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
@@ -35,13 +32,16 @@ const ManageBookingPage = () => {
   if (isLoading) return <LoadingPage />;
 
   if (data?.length < 1) return <h2 className="text-center">No Bookings</h2>;
-
+  
   return (
     <div>
       {data &&
-        data?.map((booking: any) => (
-          <BookingDetailsAdmin key={booking?.id} booking={booking} />
-        ))}
+        data?.map(
+          (booking: any) =>
+            booking.status !== "confirmed" && (
+              <BookingDetailsAdmin key={booking?.id} booking={booking} />
+            )
+        )}
     </div>
   );
 };

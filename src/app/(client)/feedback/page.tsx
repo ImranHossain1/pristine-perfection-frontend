@@ -12,11 +12,9 @@ import PrimaryButton from "@/components/ui/Button/PrimaryButton";
 
 const FeedbackPage = () => {
   const [sendFeedback] = useSendFeedbackMutation();
-  const { userId } = getUserInfo() as any;
 
   const handleSubmit = async (data: any) => {
     try {
-      data.userId = userId;
       const result = await sendFeedback({ ...data }).unwrap();
       if (result.id) {
         toast.success("Thanks for your feedback");

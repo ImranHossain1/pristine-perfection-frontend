@@ -1,10 +1,13 @@
 "use client";
 import LoadingPage from "@/app/loading";
+import CategoryField from "@/components/ui/Forms/CategoryField";
 import Form from "@/components/ui/Forms/Form";
 import FormInput from "@/components/ui/Forms/FormInput";
+import FormSelectField from "@/components/ui/Forms/FormSelectField";
 import FormSelectInput from "@/components/ui/Forms/FormSelectInput";
 import FormTextArea from "@/components/ui/Forms/FormTextArea";
 import SubmitButton from "@/components/ui/Forms/SubmitButton";
+import UploadImage from "@/components/ui/Forms/UploadImage";
 import { useCategoriesQuery } from "@/redux/api/categoryApi";
 import {
   useSingleServiceQuery,
@@ -37,33 +40,72 @@ const UpdateServicePage = ({ params }: { params: any }) => {
   }));
 
   const availabilityOptions = [
-    { label: "Available", value: "true" },
-    { label: "Not available", value: "false" },
+    { label: "Available", value: true },
+    { label: "Not available", value: false },
   ];
 
-  const defaultValues = {
+  /*  const defaultValues = {
     title: serviceData?.title,
     price: serviceData?.price,
     information: serviceData?.information,
+    availability: serviceData?.availability ? "Available" : "Not available",
+    availabilityValue: serviceData?.availability,
+
+    category: serviceData?.category.title,
+    categoryId: serviceData?.category.id,
+  };
+ */
+  const defaultValues: {
+    title: string;
+    price: number;
+    information: any;
+    availability: string;
+    category: string;
+  } = {
+    title: serviceData?.title || "",
+    price: serviceData?.price || "",
+    information: serviceData?.information || "",
+    availability: serviceData?.availability ? "Available" : "Not available",
+    category: serviceData?.category.id || "",
   };
 
-  const handleSubmit = async (data: any) => {
-    data.information = data.information?.filter((info: any) => !!info);
-    if (data.information.length < 1) {
+  const handleSubmit = async (values: any) => {
+    values.information = values.information?.filter((info: any) => !!info);
+    if (values.information.length < 1) {
       toast.error("Add Information");
       return;
     }
-    if (data?.price) data.price = Number(data.price);
-    if (data?.availability) {
-      data.availability === "true"
-        ? (data.availability = true)
-        : (data.availability = false);
+    if (values?.price) values.price = Number(values.price);
+    if (values?.availability === "Available") {
+      values.availability = true;
+    } else if (values?.availability === "Not available") {
+      values.availability = false;
+    }
+    console.log(values);
+    const makeoverData = {
+      makeover: {
+        title: values?.title,
+        price: values?.price,
+        availability: values?.availability,
+        categoryId: values?.category,
+        information: values?.information,
+      },
+    };
+
+    const formData = new FormData();
+    if (values.file !== undefined) {
+      const obj = { ...values };
+      const file = obj["file"];
+      delete obj["file"];
+      formData.append("file", file as Blob);
     }
 
+    formData.append("data", JSON.stringify(makeoverData));
     const res = await updateService({
       id: serviceData?.id,
-      payload: data,
+      payload: formData,
     }).unwrap();
+
     if (res.id) {
       toast.success("Service Created");
       router.push("/admin/manage-service");
@@ -79,16 +121,13 @@ const UpdateServicePage = ({ params }: { params: any }) => {
           doReset={false}
           defaultValues={defaultValues}
         >
+          <UploadImage name="file"></UploadImage>
           <FormInput name="title" label="Title" placeholder="Service Title" />
-          <FormInput name="image" label="Image" placeholder="Image URL" />
           <FormInput name="price" label="Price" placeholder="Service Price" />
-          <FormSelectInput
-            name="categoryId"
-            options={categoryOptions}
-            label="Select Category"
-          />
-          <FormSelectInput
+          <CategoryField name="category" label="Category" />
+          <FormSelectField
             name="availability"
+            value="availabilityValue"
             options={availabilityOptions}
             label="Select Availability"
           />
@@ -101,7 +140,6 @@ const UpdateServicePage = ({ params }: { params: any }) => {
               />
             </div>
           ))}
-
           {/* buttons  */}
           <button
             type="button"
@@ -115,7 +153,6 @@ const UpdateServicePage = ({ params }: { params: any }) => {
           >
             Add Information
           </button>
-
           {/* ends here  */}
           <SubmitButton label="Update" />
         </Form>

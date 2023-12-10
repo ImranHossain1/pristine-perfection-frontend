@@ -24,7 +24,7 @@ const Modal = ({
       <label
         onClick={() => setModalOpen(true)}
         htmlFor={htmlFor}
-        className={`btn rounded lg:mt-0 ${btnSize} ${btnTheme} `}
+        className={`btn rounded lg:mt-0 ${btnSize} ${btnTheme} mx-2`}
       >
         {label}
       </label>

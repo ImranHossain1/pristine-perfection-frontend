@@ -2,6 +2,7 @@
 import LoadingPage from "@/app/loading";
 import ActionHeader from "@/components/ui/ActionHeader/ActionHeader";
 import AdditionalInformation from "@/components/ui/AdditionalInformation/AdditionalInformation";
+import AvatarComponent from "@/components/ui/Avater/Avatar";
 import InfoComponent from "@/components/ui/Info/Info";
 import Modal from "@/components/ui/Modal/Modal";
 import CustomTable from "@/components/ui/Table/CustomTable";
@@ -27,6 +28,7 @@ const ManageServicePage = () => {
   const [deleteService] = useDeleteServiceMutation();
   const router = useRouter();
   const columns = [
+    { key: "image", label: "Image" },
     { key: "title", label: "Title" },
     { key: "price", label: "Price" },
     { key: "category", label: "Category" },
@@ -52,8 +54,10 @@ const ManageServicePage = () => {
   };
 
   const serviceData = data.map((service: any) => ({
+    image: service?.image,
     title: service?.title,
     price: service?.price,
+
     category: service?.category?.title,
     availability: service?.availability ? "Available" : "Not available",
     createdAt: format(new Date(service?.createdAt), "yyyy-MM-dd"),
@@ -68,6 +72,10 @@ const ManageServicePage = () => {
           setModalOpen={setModalOpen}
         >
           <div>
+            <AvatarComponent
+              label="Service Title"
+              data={service?.image}
+            ></AvatarComponent>
             <InfoComponent label="Service Title" data={service?.title} />
             <InfoComponent label="Service Price" data={service?.price} />
             <InfoComponent

@@ -4,7 +4,7 @@ import { useReviewsQuery } from "@/redux/api/reviewApi";
 import React from "react";
 import Heading from "../Heading/Heading";
 import Image from "next/image";
-
+import background from "../../../asset/image/makeup.jpg";
 const ReviewSection = () => {
   const { data, isLoading } = useReviewsQuery(undefined);
   if (isLoading) return <LoadingPage />;
@@ -15,7 +15,7 @@ const ReviewSection = () => {
 
       <div
         style={{
-          backgroundImage: `url('https://i.ibb.co/PmF8gHS/element5-digital-ce-Wg-SMd8rv-Q-unsplash.jpg')`,
+          backgroundImage: `url('https://res.cloudinary.com/dk9iz6r2z/image/upload/v1702078776/zjg4d7tird50raurgies.jpg')`,
         }}
         className="h-72 md:h-96 w-full overflow-y-scroll bg-cover bg-fixed bg-center bg-no-repeat flex items-center rounded px-1 md:px-2"
       >
@@ -39,7 +39,7 @@ const ReviewSection = () => {
                       src={
                         review?.user?.profileImg
                           ? review?.user?.profileImg
-                          : "https://i.ibb.co/VWr11NC/5891012-removebg-preview.png"
+                          : "https://res.cloudinary.com/dk9iz6r2z/image/upload/v1702046564/gbifw5rwo76tidd6f3x4.jpg"
                       }
                       alt=""
                       width={300}

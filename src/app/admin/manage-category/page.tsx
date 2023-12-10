@@ -20,13 +20,12 @@ const ManageCategoryPage = () => {
   const [deleteCategory] = useDeleteCategoryMutation();
   const router = useRouter();
   const columns = [
+    { key: "image", label: "Image" },
     { key: "title", label: "Title" },
     { key: "createdAt", label: "Created At" },
   ];
 
   if (isLoading) return <LoadingPage />;
-  console.log(data);
-
   const handleDeleteCategory = async (id: string) => {
     const res = await deleteCategory(id).unwrap();
     if (res.id) {
@@ -35,9 +34,9 @@ const ManageCategoryPage = () => {
     } else toast.error("Something went wrong");
     setModalOpen(false);
   };
-
-  const categoryData = data.map((category: any) => ({
-    title: category.title,
+  const categoryData = data?.map((category: any) => ({
+    image: category?.image,
+    title: category?.title,
     createdAt: format(new Date(category?.createdAt), "yyyy-MM-dd"),
     id: category.id,
     actionButton: (

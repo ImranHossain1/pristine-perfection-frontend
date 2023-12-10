@@ -20,7 +20,7 @@ const BookingDetails = ({ data }: IProps) => {
         {/* row 1 */}
         <tr>
           <th className="lg:text-base py-0">{data?.user?.name}</th>
-          <th className="lg:text-base py-0">{data?.contactNo}</th>
+          <th className="lg:text-base py-0">{data?.user?.phone}</th>
           <th className="lg:text-base py-0">{data?.alternativeContactNo}</th>
         </tr>
       </tbody>

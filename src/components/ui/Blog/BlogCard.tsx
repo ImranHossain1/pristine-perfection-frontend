@@ -5,9 +5,10 @@ import React from "react";
 interface IProps {
   blog: any;
   theme: "dark" | "light";
+  backgroundImage: string;
 }
 
-const BlogCard = ({ blog, theme }: IProps) => {
+const BlogCard = ({ blog, theme, backgroundImage }: IProps) => {
   const router = useRouter();
   return (
     <div
@@ -16,7 +17,7 @@ const BlogCard = ({ blog, theme }: IProps) => {
     >
       <div className="relative overflow-hidden rounded">
         <Image
-          src="https://i.ibb.co/9WLqXvH/162044866-494105921752427-2053151397308435679-n.jpg"
+          src={backgroundImage}
           alt=""
           width={300}
           height={300}

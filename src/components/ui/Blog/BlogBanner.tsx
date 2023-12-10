@@ -10,7 +10,7 @@ const BlogBanner = ({ blog }: { blog: any }) => {
       className="m-3 cursor-pointer rounded overflow-hidden w-64 h-64  md:h-80 md:w-80 group relative hover:scale-95 transition-transform duration-300 ease-in-out"
     >
       <Image
-        src="https://i.ibb.co/9WLqXvH/162044866-494105921752427-2053151397308435679-n.jpg"
+        src="https://res.cloudinary.com/dk9iz6r2z/image/upload/v1702046564/gbifw5rwo76tidd6f3x4.jpg"
         alt=""
         width={500}
         height={500}

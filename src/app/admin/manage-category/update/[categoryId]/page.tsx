@@ -4,6 +4,7 @@ import Form from "@/components/ui/Forms/Form";
 import FormInput from "@/components/ui/Forms/FormInput";
 import FormTextArea from "@/components/ui/Forms/FormTextArea";
 import SubmitButton from "@/components/ui/Forms/SubmitButton";
+import UploadImage from "@/components/ui/Forms/UploadImage";
 import {
   useSingleCategoryQuery,
   useUpdateCategoryMutation,
@@ -34,16 +35,29 @@ const UpdateCategoryPage = ({ params }: { params: any }) => {
     information: categoryData?.information,
   };
 
-  const handleSubmit = async (data: any) => {
-    data.information = data.information?.filter((info: any) => !!info);
-    if (data.information.length < 1) {
+  const handleSubmit = async (values: any) => {
+    values.information = values.information?.filter((info: any) => !!info);
+    if (values.information.length < 1) {
       toast.error("Add Information");
       return;
     }
-    console.log(data);
+    const updateCategoryData = {
+      category: {
+        title: values.title,
+        information: values.information,
+      },
+    };
+    const obj = { ...values };
+    const file = obj["file"];
+    delete obj["file"];
+
+    const formData = new FormData();
+    formData.append("file", file as Blob);
+    formData.append("data", JSON.stringify(updateCategoryData));
+
     const res = await updateCategory({
       id: categoryData?.id,
-      payload: data,
+      payload: formData,
     }).unwrap();
     if (res.id) {
       toast.success("Category Updated");
@@ -61,8 +75,10 @@ const UpdateCategoryPage = ({ params }: { params: any }) => {
           resolver={yupResolver(categorySchema)}
           defaultValues={defaultValues}
         >
+          <UploadImage name="file"></UploadImage>
           <FormInput name="title" label="Title" placeholder="Category Title" />
-          <FormInput name="image" label="Image" placeholder="Image URL" />
+          {/* <FormInput name="image" label="Image" placeholder="Image URL" /> */}
+
           <div className="mb-1">Information</div>
           {contentInputs?.map((order) => (
             <div key={order}>
