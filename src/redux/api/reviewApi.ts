@@ -7,7 +7,7 @@ export const reviewApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     postReview: build.mutation({
       query: (data) => ({
-        url: REVIEW_URL,
+        url: `${REVIEW_URL}/${data?.id}`,
         method: "POST",
         data: data,
       }),

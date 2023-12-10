@@ -12,13 +12,16 @@ const Redirect = ({ children, role }: IProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const user = getUserInfo() as any;
   const router = useRouter();
-  
+
+  console.log(user?.role);
+  console.log(role);
   useEffect(() => {
-    if (role && user?.role !== "super_admin") {
-      user?.role !== role && router.push("/login");
-    } else {
-      !user?.email && router.push("/login");
+    if (!user.role) {
+      router.push("/login");
+    } else if (role != user?.role) {
+      router.push("/");
     }
+
     setIsLoading(false);
   }, [router, user?.email, user?.role, role]);
 

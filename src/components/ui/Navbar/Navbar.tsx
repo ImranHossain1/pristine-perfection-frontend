@@ -11,6 +11,7 @@ import {
   adminItems,
   clientItems,
   commonCenterItems,
+  superAdminItems,
 } from "@/constants/linkItems";
 import { useCategoriesQuery } from "@/redux/api/categoryApi";
 
@@ -176,7 +177,7 @@ const Navbar = ({ sidebar }: IProps) => {
                     ))}
                   {currentUser.role &&
                     currentUser.role === "super_admin" &&
-                    adminItems?.map((item) => (
+                    superAdminItems?.map((item) => (
                       <li
                         className={path == item?.href ? "active" : ""}
                         key={item?.href}
