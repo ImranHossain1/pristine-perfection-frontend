@@ -13,9 +13,9 @@ const Footer = () => {
             About Us
           </h1>
           <div className="md:text-lg">
-            Experience beauty and transformation at our makeover studio. Our
-            professionals enhance your natural beauty with dream makeovers. Book
-            now to look and feel your best!
+            Experience the art of transformation with our Makeover Services,
+            where beauty meets expertise. Unleash your radiance and redefine
+            your style with our skilled professionals!
           </div>
           <div className="flex space-x-4 text-2xl md:text-4xl mt-2 md:mt-4">
             <BiLogoFacebook />
@@ -28,15 +28,15 @@ const Footer = () => {
             Contact Us
           </h1>
           <div className="md:text-lg">
-            #01, A block, Shugandha, Muradpur, Chittagong, Bangladesh
+            Ginnheimer Landstr.42, Frankfurt, Germany- 60487
           </div>
           <div className="md:text-lg text-[#FFCF99] mt-3 md:mt-4">
-            +880-181XXXXXXX
+            +4901XXXXXXX
           </div>
         </div>
       </div>
       <hr className="mb-4 md:mb-8" />
-      <div className="md:text-xl">© Glamour Reserve 2023</div>
+      <div className="md:text-xl">© Pristine Perfection 2023</div>
     </div>
   );
 };

@@ -5,10 +5,11 @@ import React from "react";
 import Heading from "../Heading/Heading";
 import Image from "next/image";
 import background from "../../../asset/image/makeup.jpg";
+import { Rate } from "antd";
 const ReviewSection = () => {
   const { data, isLoading } = useReviewsQuery(undefined);
   if (isLoading) return <LoadingPage />;
-
+  console.log(data);
   return (
     <div>
       <Heading label="What Client Says" subLabel="Reviews" />
@@ -30,6 +31,9 @@ const ReviewSection = () => {
                   {review?.review?.length < 110
                     ? review?.review
                     : review?.review?.slice(0, 110) + "..."}
+                </div>
+                <div className="">
+                  <Rate disabled defaultValue={review?.rating} />
                 </div>
                 <div>
                   <div className="border border-solid border-[#1E1E24] mb-3"></div>

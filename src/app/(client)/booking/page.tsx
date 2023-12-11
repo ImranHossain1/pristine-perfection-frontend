@@ -3,11 +3,15 @@ import LoadingPage from "@/app/loading";
 import BookingDetails from "@/components/ui/Booking/BookingDetails";
 import HeadingStart from "@/components/ui/Heading/HeadingStart";
 import Modal from "@/components/ui/Modal/Modal";
+import UpdateReview from "@/components/ui/ReviewSection/UpdateReview";
 import {
   useCancelMyBookingMutation,
   useMyBookingsQuery,
 } from "@/redux/api/bookingApi";
-import { usePostReviewMutation } from "@/redux/api/reviewApi";
+import {
+  useDeleteReviewMutation,
+  usePostReviewMutation,
+} from "@/redux/api/reviewApi";
 import { Col, Rate, Row, Space, Tooltip } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import React, { useState } from "react";
@@ -17,12 +21,13 @@ const BookingsPage = () => {
   const [modalOpen, setModalOpen] = useState(true);
   const { data, isLoading } = useMyBookingsQuery(undefined);
   const [cancelMyBooking] = useCancelMyBookingMutation();
-  console.log(data);
+  const [deleteReview] = useDeleteReviewMutation();
+
   const [reviewId, setReviewId] = useState<string>("");
   const [reviewText, setReviewText] = useState("");
   const [updateReviewText, setUpdateReviewText] = useState("");
   const [rating, setRating] = useState(3);
-  const [updateRating, setUpdateRating] = useState(3);
+  const [updateRating, setUpdateRating] = useState(0);
   const [actionType, setActionType] = useState<string>("post");
   const [postReview] = usePostReviewMutation();
 
@@ -33,8 +38,12 @@ const BookingsPage = () => {
     toast.success("Your Booking has been canceled");
     setModalOpen(false);
   };
+  const handleDeleteReview = async (id: string) => {
+    await deleteReview(id);
+    toast.success("Your Review has been Deleted");
+    setModalOpen(false);
+  };
   const handleBookingReview = async (id: string) => {
-    console.log(id);
     const reviewData = {
       review: reviewText,
       rating: rating,
@@ -46,12 +55,43 @@ const BookingsPage = () => {
       }).unwrap();
       if (res?.id) {
         toast.success("Thank you for your review!");
+        setRating(3);
+        setReviewText("");
         setModalOpen(false);
       }
     } catch (err: any) {
       console.log(err);
       setModalOpen(false);
     }
+  };
+  const handleUpdateReview = async (id: string) => {
+    let reviewData: { review?: string; rating?: number } = {};
+
+    if (updateReviewText.trim() !== "") {
+      reviewData.review = updateReviewText.trim();
+    }
+
+    if (updateRating !== 0) {
+      reviewData.rating = updateRating;
+    }
+
+    console.log(updateRating);
+
+    /* try {
+      const res = await postReview({
+        ...reviewData,
+        id: id,
+      }).unwrap();
+      if (res?.id) {
+        toast.success("Thank you for your review!");
+        setRating(3);
+        setReviewText("");
+        setModalOpen(false);
+      }
+    } catch (err: any) {
+      console.log(err);
+      setModalOpen(false);
+    } */
   };
 
   if (!data || data?.length < 1)
@@ -159,10 +199,8 @@ const BookingsPage = () => {
                                   Review
                                 </button>
                                 <button
-                                  onClick={() =>
-                                    handleBookingReview(booking?.id)
-                                  }
-                                  className="btn btn-error rounded btn-sm ml-2"
+                                  onClick={() => setModalOpen(false)}
+                                  className="btn rounded btn-sm mx-2"
                                 >
                                   Cancel
                                 </button>
@@ -183,6 +221,106 @@ const BookingsPage = () => {
                               defaultValue={booking.reviewAndRating.rating}
                             />
                           </Tooltip>
+                          <UpdateReview
+                            reviewAndRating={booking.reviewAndRating}
+                          ></UpdateReview>
+                          {/* <div className="lg:ml-2">
+                            <Modal
+                              htmlFor={`booking/updateReview/${booking?.reviewAndRating.id}`}
+                              label="Update"
+                              btnSize="btn-xs"
+                              btnTheme="btn-success"
+                              modalOpen={modalOpen}
+                              setModalOpen={setModalOpen}
+                            >
+                              <div>
+                                <h3>Do you want to update your review?</h3>
+                                <>
+                                  <Row
+                                    gutter={{ xs: 24, xl: 8, lg: 8, md: 24 }}
+                                  >
+                                    <Col span={12} style={{ margin: "15px 0" }}>
+                                      <TextArea
+                                        placeholder="Tell us how we did that?"
+                                        autoSize={{ minRows: 2, maxRows: 6 }}
+                                        value={booking?.reviewAndRating.review}
+                                        onChange={(e) =>
+                                          setUpdateReviewText(e.target.value)
+                                        }
+                                      />
+                                    </Col>
+                                  </Row>
+                                  <Row
+                                    gutter={{ xs: 24, xl: 8, lg: 8, md: 24 }}
+                                  >
+                                    <Space>
+                                      <Rate
+                                        tooltips={desc}
+                                        onChange={setRating}
+                                        value={booking?.reviewAndRating.rating}
+                                      />
+                                      {rating ? (
+                                        <span>{desc[rating - 1]}</span>
+                                      ) : (
+                                        ""
+                                      )}
+                                    </Space>
+                                  </Row>
+                                </>
+                                <div className="flex justify-end mt-3">
+                                  <button
+                                    onClick={() =>
+                                      handleUpdateReview(booking?.id)
+                                    }
+                                    className="btn btn-success rounded btn-sm"
+                                  >
+                                    Review
+                                  </button>
+                                  <button
+                                    onClick={() => setModalOpen(false)}
+                                    className="btn rounded btn-sm mx-2"
+                                  >
+                                    Cancel
+                                  </button>
+                                </div>
+                              </div>
+                            </Modal>
+                          </div> */}
+                          <div className="lg:ml-2">
+                            <Modal
+                              htmlFor={`review/cancel/${booking?.reviewAndRating.id}`}
+                              label="Delete"
+                              btnSize="btn-xs"
+                              btnTheme="btn-error"
+                              modalOpen={modalOpen}
+                              setModalOpen={setModalOpen}
+                            >
+                              <div>
+                                <h3 className="text-center">
+                                  Your Booking will be deleted by clicking
+                                  Delete
+                                </h3>
+                                <div className="flex justify-center mt-3">
+                                  <button
+                                    onClick={() =>
+                                      handleDeleteReview(
+                                        booking?.reviewAndRating.id
+                                      )
+                                    }
+                                    className="btn btn-error rounded btn-sm"
+                                  >
+                                    Delete
+                                  </button>
+                                  <button
+                                    onClick={() => setModalOpen(false)}
+                                    className="btn rounded btn-sm mx-2"
+                                  >
+                                    Cancel
+                                  </button>
+                                </div>
+                              </div>
+                            </Modal>
+                          </div>
                         </>
                       )
                     ) : (
@@ -205,6 +343,12 @@ const BookingsPage = () => {
                                 className="btn btn-error rounded btn-sm"
                               >
                                 Delete
+                              </button>
+                              <button
+                                onClick={() => setModalOpen(false)}
+                                className="btn rounded btn-sm mx-2"
+                              >
+                                Cancel
                               </button>
                             </div>
                           </div>

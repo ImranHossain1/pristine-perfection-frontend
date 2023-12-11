@@ -13,7 +13,7 @@ interface IProps {
 
 const Sidebar = ({ items }: IProps) => {
   return (
-    <ul className="menu p-4 w-72 min-h-screen bg-[#1e1e24] text-[#fff8f0] hidden lg:block">
+    <ul className="menu w-72 min-h-screen bg-[#1e1e24] text-[#fff8f0] hidden lg:block">
       {/* Sidebar content here */}
       {items &&
         items?.map((item, index) => (

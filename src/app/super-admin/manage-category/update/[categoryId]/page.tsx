@@ -61,7 +61,7 @@ const UpdateCategoryPage = ({ params }: { params: any }) => {
     }).unwrap();
     if (res.id) {
       toast.success("Category Updated");
-      router.push("/admin/manage-category");
+      router.back();
     } else toast.error("Something went wrong");
   };
 

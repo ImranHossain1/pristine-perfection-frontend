@@ -101,7 +101,7 @@ const ManageCategoryPage = () => {
     <div>
       <ActionHeader
         label="Categories"
-        href="/super-super-admin/manage-category/create"
+        href="/super-admin/manage-category/create"
         doSearch={false}
       />
 
