@@ -2,6 +2,19 @@
 
 ### Backend Code : https://github.com/ImranHossain1/pristine-perfection-backend
 
+## Authentication:
+
+    ### Super Admin
+    ```bash
+        email: imran@gmail.com
+        password: admin123
+    ```
+    ### Admin
+    ```bash
+        email: helal@gmail.com
+        password: admin123
+    ```
+
 # Pristine Perfection
 
 Pristine Perfection is a fullstack makeover project built with Next.js, Node.js, Express, Prisma, PostgreSQL, and Cloudinary. The application allows users to book different makeup packages based on various categories, schedule appointments, and post feedback and reviews. Administrators can manage user roles, services, packages, and bookings.
