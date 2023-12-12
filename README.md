@@ -4,16 +4,23 @@
 
 ## Authentication:
 
-    ### Super Admin
-    ```bash
-        email: imran@gmail.com
-        password: admin123
-    ```
-    ### Admin
-    ```bash
-        email: helal@gmail.com
-        password: admin123
-    ```
+1. Super Admin Authentication:
+
+   ```bash
+      email: imran@gmail.com
+       password: admin123
+   ```
+
+2. Admin Authentication:
+
+```bash
+    email: helal@gmail.com
+    password: admin123
+```
+
+3. User Authentication: You can Create a New Account
+
+### Admin
 
 # Pristine Perfection
 
@@ -39,19 +46,19 @@ Pristine Perfection is a fullstack makeover project built with Next.js, Node.js,
 
 - **Frontend:**
 
-  - Next.js with App Router
-  - React for the user interface
-  - Redux for state management
+- Next.js with App Router
+- React for the user interface
+- Redux for state management
 
 - **Backend:**
 
-  - Node.js with Express for the server
-  - Prisma for database access
-  - PostgreSQL as the database
-  - JWT for authentication
+- Node.js with Express for the server
+- Prisma for database access
+- PostgreSQL as the database
+- JWT for authentication
 
 - **Cloud Services:**
-  - Cloudinary for image hosting
+- Cloudinary for image hosting
 
 ## Getting Started
 
@@ -61,10 +68,10 @@ To get started with Pristine Perfection, follow the steps below.
 
 1. Clone the repository:
 
-   ```bash
-   git clone https://github.com/ImranHossain1/pristine-perfection-frontend.git
-   cd pristine-perfection
-   ```
+```bash
+git clone https://github.com/ImranHossain1/pristine-perfection-frontend.git
+cd pristine-perfection
+```
 
 2. Create a .env file in the server directory and configure the following:
 
