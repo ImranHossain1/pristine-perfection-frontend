@@ -6,10 +6,10 @@
 
 1. Super Admin Authentication:
 
-   ```bash
+```bash
       email: imran@gmail.com
-       password: admin123
-   ```
+      password: admin123
+```
 
 2. Admin Authentication:
 
@@ -19,8 +19,6 @@
 ```
 
 3. User Authentication: You can Create a New Account
-
-### Admin
 
 # Pristine Perfection
 
