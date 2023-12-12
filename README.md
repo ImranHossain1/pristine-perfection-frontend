@@ -25,10 +25,6 @@ Pristine Perfection is a fullstack makeover project built with Next.js, Node.js,
 - [Technologies Used](#technologies-used)
 - [Getting Started](#getting-started)
 - [Installation](#installation)
-- [Configuration](#configuration)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Features
 
