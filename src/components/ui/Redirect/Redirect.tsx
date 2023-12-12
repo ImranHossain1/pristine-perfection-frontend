@@ -13,8 +13,6 @@ const Redirect = ({ children, role }: IProps) => {
   const user = getUserInfo() as any;
   const router = useRouter();
 
-  console.log(user?.role);
-  console.log(role);
   useEffect(() => {
     if (!user.role) {
       router.push("/login");
