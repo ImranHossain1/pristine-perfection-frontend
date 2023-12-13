@@ -9,7 +9,6 @@ import { Rate } from "antd";
 const ReviewSection = () => {
   const { data, isLoading } = useReviewsQuery(undefined);
   if (isLoading) return <LoadingPage />;
-  console.log(data);
   return (
     <div>
       <Heading label="What Client Says" subLabel="Reviews" />

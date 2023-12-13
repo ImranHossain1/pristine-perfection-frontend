@@ -26,13 +26,16 @@ import { useProfileQuery } from "@/redux/api/profileApi";
 const BookServicePage = ({ params }: { params: any }) => {
   const { serviceId } = params;
   const { data, isLoading } = useSingleServiceQuery(serviceId);
-  const { userId: email } = getUserInfo() as any;
+  const user = getUserInfo() as any;
+
   const [selectedDate, setSelectedDate] = useState<Date>();
   const [slot, setSlot] = useState("");
   const { data: slotData, isLoading: isSlotLoading } = useBookingsByDateQuery(
     selectedDate && format(selectedDate, "yyyy-MM-dd")
   );
-  const { data: userData, isLoading: isUserLoading } = useProfileQuery(email);
+  const { data: userData, isLoading: isUserLoading } = useProfileQuery(
+    user.email
+  );
   const [bookService] = useBookServiceMutation();
   const router = useRouter();
 
@@ -54,7 +57,6 @@ const BookServicePage = ({ params }: { params: any }) => {
     data.date = format(selectedDate, "yyyy-MM-dd");
     data.userId = userData.id;
     data.makeoverServiceId = serviceId;
-    console.log(data);
     const res = await bookService(data).unwrap();
 
     if (res.id) {
@@ -68,7 +70,7 @@ const BookServicePage = ({ params }: { params: any }) => {
   const availableSlots = checkAvailableSlots(slotOptions, slotData);
 
   return (
-    <Redirect>
+    <Redirect role={user.role || ""}>
       <div>
         <Heading label={data?.title} subLabel="Book your service" />
         <ServiceDetailsCard data={data} bookBtn={false} />
